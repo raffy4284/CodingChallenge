@@ -9,7 +9,10 @@ Coding Challenge
     -file_input takes in a "<City> | <x,y>" for each line
 
 * If I was given more time, I would actually use Google's API for getting the real coordinates based on the city names via some type of Get request
-  Furthermore, I would implement the TSP such that --optimize would work!
+  Furthermore, I would implement the TSP such that --optimize would work! **UPDATE: --optimized to optimize!!
+
+* sample test:
+  ./test1 distanceFile -type=km --optimized
 
 test2:
 * I defined a class Deck such that it cannot see the whole list of cards! ("I abstracted it away as a stack since it seems to me that you were asking me for a function GetNextCard. But I could redefine it either way and have a GetCard(self,index). 
