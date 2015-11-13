@@ -36,4 +36,6 @@ comments:
   Similarly, for more precision on coordinates, I would use Google's API, but that's if I have more time (prolly around 20 to 30 min..I still need to get a key from them!)
   
   Furthermore, argument checking for test1 is kind of messy, if given more time, I would've cleaned that up!
+
+  Also, I used python because that's what I'm more comfortable with. In reality I believe I would've used bash!
 ****
