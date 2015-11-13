@@ -34,4 +34,6 @@ comments:
   I realized I was supposed to do the coding challenge on Friday, (For some reason I thought I said Saturday! haha, my mistake) and I believe I started 30 min later
 
   Similarly, for more precision on coordinates, I would use Google's API, but that's if I have more time (prolly around 20 to 30 min..I still need to get a key from them!)
+  
+  Furthermore, argument checking for test1 is kind of messy, if given more time, I would've cleaned that up!
 ****
