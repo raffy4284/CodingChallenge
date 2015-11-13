@@ -1,4 +1,3 @@
-#!/usr/bin/python
 import random
 class Card:
   __suit = None
