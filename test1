@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 import sys
+import itertools
+
+def permute_cities(cities):
+  ret_val = list()
+  for i in itertools.permutations(cities):
+    ret_val.append( list(i))
+  return ret_val
+
 def distance(cities,type):
   connected_graphs = list()
   total_dist = 0
@@ -7,17 +15,39 @@ def distance(cities,type):
     dist = calc_distance(list([cities[i][1],cities[i+1][1]]))
     connected_graphs.append(list([cities[i][0],cities[i+1][0],dist]))
     total_dist+= dist
-
   print "\nSuccess! Your vacation itinerary is:"
   for i in connected_graphs:
     print "\t"+i[0]+"-> "+i[1]+": "+str(i[2])
   print ("Total distance covered in your trip: {:,}".format(total_dist)),
   print type+'\n'
+
+
 def calc_distance(coordinates):
   return pow(pow(coordinates[0][0]-coordinates[1][0],2)+pow(coordinates[1][1]-coordinates[0][1],2),0.5)
 
-if len(sys.argv) > 3:
-  print "too many arguments!" 
+
+def optimized_distance(list_of_cities,type):
+  def distance_helper(cities):
+    connected_graphs = list()
+    total_dist = 0
+    for i in range(0,len(cities)-1):
+      dist = calc_distance(list([cities[i][1],cities[i+1][1]]))
+      total_dist+= dist
+    return total_dist
+  min_total = float("INF")
+  min_city = None
+  for cities in list_of_cities:
+    if min_total > distance_helper(cities):
+      min_city = cities
+      min_total = distance_helper(cities)
+  distance(min_city,type)
+
+
+
+
+
+if len(sys.argv) <= 1:
+  print "Specify File Name!!" 
 else:
   f = open("distanceFile",'r')
   items = list()
@@ -28,16 +58,47 @@ else:
     items[i][1] = items[i][1].split(' ')[1]
     items[i][1] = items[i][1].split('\n')[0]
     items[i][1] = items[i][1].split(',')
-    items[i][1][0] = int(items[i][1][0])
-    items[i][1][1] = int(items[i][1][1]) 
-  if len(sys.argv) == 3:
-    if (sys.argv[2][0] != '-'):
-      print "Incorrect 3rd parameter. Must be -type=miles or -type=km"
+    items[i][1][0] = float(items[i][1][0])
+    items[i][1][1] = float(items[i][1][1])
+
+ 
+  if len(sys.argv) == 2:
+    distance(items,"miles")
+  elif len(sys.argv) == 3:
+    if sys.argv[2] == "--optimized":
+      list_of_cities = permute_cities(items) 
+      optimized_distance(list_of_cities,"miles")  
+    elif (sys.argv[2][0] != '-'):
+      print "Incorrect 3rd parameter. Must be -type=miles or -type=km or --optimize"
+
     else:
-      dist_type = sys.argv[2].split('-')[1]
+      dist_type = sys.argv[2].split('-')[1].split('=')[1]
       if dist_type != "miles" and dist_type != "km":
         print "type must be miles or km only"
       else:
         distance(items,dist_type)
-  else:
-    distance(items,"miles")
+  elif len(sys.argv) == 4:
+    if sys.argv[3] == "--optimized":
+      if sys.argv[2][0] == "-":
+        dist_type = sys.argv[2].split('-')[1].split('=')[1]
+        if dist_type != "miles" and dist_type != "km":
+          print "type must be miles or km only"
+        else:
+          list_of_cities = permute_cities(items) 
+          optimized_distance(list_of_cities,dist_type)
+      else:
+        print "Incorrect 3rd parameter. Must be -type=miles or -type=km or --optimize"
+    elif sys.argv[3][0]+sys.argv[3][1] == "--":
+      print "Unknown parameter"
+    elif sys.argv[2] == "--optimized":
+      if sys.argv[3][0] == "-":
+        dist_type = sys.argv[3].split('-')[1].split('=')[1]
+        if dist_type != "miles" and dist_type != "km":
+          print "type must be miles or km only"
+        else:
+          list_of_cities = permute_cities(items) 
+          optimized_distance(list_of_cities,dist_type)
+      else:
+        print "Incorrect 3rd parameter. Must be -type=miles or -type=km or --optimize"
+    elif sys.argv[2][0]+sys.argv[2][1] == "--":
+      print "Unknown parameter"

@@ -30,7 +30,5 @@ test2:
 comments:
   I realized I was supposed to do the coding challenge on Friday, (For some reason I thought I said Saturday! haha, my mistake) and I believe I started 30 min later
 
-  Also I couldn't implement the TSP on the distance problem due to time constraint. But I described my algorithm and generating permutations should be easy! ( prolly around 10 to 20 depending on debugging)
-
   Similarly, for more precision on coordinates, I would use Google's API, but that's if I have more time (prolly around 20 to 30 min..I still need to get a key from them!)
 ****
